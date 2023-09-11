@@ -1,0 +1,20 @@
+.card {
+    display: flex;
+    border-radius: 10px;
+    max-height: 250px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-width: 700px;
+}
+
+.image {
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.title-block {
+    display: flex;
+}
+
+.char-row {
+    display: flex;
+}
