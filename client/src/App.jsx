@@ -7,24 +7,32 @@ function App() {
   const [data, setData] = useState();
   const [search, setSearch] = useState();
 
+  // useEffect(() => {
+  //   fetch("http://127.0.0.1:5000")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data);
+  //       console.log(data.cars[0]);
+  //     });
+  // }, []);
+
   return (
     <>
       <Form />
-
-      {/*<Card*/}
-      {/*  link={"https://auto.ria.com/uk/auto_volkswagen_tiguan_35177119.html"}*/}
-      {/*  site={"autoria"}*/}
-      {/*  city={"lviv"}*/}
-      {/*  image={*/}
-      {/*    "https://cdn1.riastatic.com/photosnew/auto/photo/volkswagen_tiguan__513741891bx.jpg"*/}
-      {/*  }*/}
-      {/*  year={"2001"}*/}
-      {/*  title={"lanos"}*/}
-      {/*  volume={"1.5"}*/}
-      {/*  transmission={"auto"}*/}
-      {/*  price={"1111"}*/}
-      {/*  run={"222"}*/}
-      {/*/>*/}
+      {/*{data?.cars[0] && (*/}
+      {/*  <Card*/}
+      {/*    link={data.cars[0].link}*/}
+      {/*    site={data.cars[0].site}*/}
+      {/*    city={data.cars[0].city}*/}
+      {/*    image={data.cars[0].image}*/}
+      {/*    year={data.cars[0].year}*/}
+      {/*    title={data.cars[0].title}*/}
+      {/*    volume={data.cars[0].volume}*/}
+      {/*    transmission={data.cars[0].transmission}*/}
+      {/*    price={data.cars[0].price}*/}
+      {/*    run={data.cars[0].run}*/}
+      {/*  />*/}
+      {/*)}*/}
     </>
   );
 }

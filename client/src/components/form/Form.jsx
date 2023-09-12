@@ -4,8 +4,30 @@ import { useState } from "react";
 const Form = () => {
   const [data, setData] = useState();
 
+  const formData = new FormData();
+
+  const car = {
+    image:
+      "https://cdn1.riastatic.com/photosnew/auto/photo/volkswagen_tiguan__513741891bx.jpg",
+    link: "https://auto.ria.com/uk/auto_volkswagen_tiguan_35177119.html",
+    title: "lanos",
+    year: "2001",
+    price: "1111",
+    run: "222",
+    city: "lviv",
+    transmission: "",
+    volume: "1.5",
+    site: "autoria",
+  };
+
   const fetchData = () => {
-    fetch("http://127.0.0.1:5000")
+    fetch("http://127.0.0.1:5000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(car),
+    })
       .then((res) => res.json())
       .then((data) => {
         setData(data);
