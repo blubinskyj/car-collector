@@ -1,7 +1,46 @@
 import "./Form.css";
+import { useState } from "react";
 
 const Form = () => {
-  return;
+  const [data, setData] = useState();
+
+  const fetchData = () => {
+    fetch("http://127.0.0.1:5000")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        console.log(data);
+      });
+  };
+
+  return (
+    <div className={"form-container"}>
+      <div>
+        <input type="text" placeholder={"марка"} />
+      </div>
+      <div>
+        <input type="text" placeholder={"модель"} />
+      </div>
+      <div>
+        <input type="text" placeholder={"рік від"} />
+      </div>
+      <div>
+        <input type="text" placeholder={"рік до"} />
+      </div>
+      <div>
+        <input type="text" placeholder={"ціна від"} />
+      </div>
+      <div>
+        <input type="text" placeholder={"ціна до"} />
+      </div>
+      <div>
+        <input type="text" placeholder={"місто"} />
+      </div>
+      <div>
+        <input type="submit" onClick={fetchData} />
+      </div>
+    </div>
+  );
 };
 
 export default Form;

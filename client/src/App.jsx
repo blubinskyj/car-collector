@@ -6,11 +6,6 @@ import Form from "./components/form/Form.jsx";
 function App() {
   const [data, setData] = useState();
   const [search, setSearch] = useState();
-  useEffect(() => {
-    fetch("/")
-      .then((res) => res.json())
-      .then((data) => setData());
-  }, []);
 
   return (
     <>
