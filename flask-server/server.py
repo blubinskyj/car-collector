@@ -27,9 +27,21 @@ def cars():
                 response = requests.get(url)
                 if response.status_code == 200:
                     soup = BeautifulSoup(response.text, 'html.parser')
-                    item_elements = soup.find_all(class_='item ticket-title')
-                    car_names = [item.get_text().strip() for item in item_elements]
-                    return jsonify(car_names)
+                    car_blocks = soup.find_all(class_='ticket-item')
+                    car_data_list = []
+                    for car_block in car_blocks:
+                        car_name = car_block.find(class_='item ticket-title').get_text().strip()
+                        car_price = car_block.find(class_='bold size22 green').get_text().strip()
+                        car_year = car_name[-4:]
+                        car_image = car_block.find('img')['src']
+                        car_data = {
+                            'title': car_name,
+                            'price': car_price,
+                            'yarn': car_year,
+                            'image': car_image
+                        }
+                        car_data_list.append(car_data)
+                    return jsonify(car_data_list)
                 else:
                     return jsonify({'error': 'Не вдалося отримати сторінку'}), 500
             except Exception as e:
