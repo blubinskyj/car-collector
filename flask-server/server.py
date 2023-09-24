@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from bs4 import BeautifulSoup
+import requests
 import sys
 
 app = Flask(__name__)
@@ -10,18 +12,30 @@ CORS(app)
 def cars():
     if request.method == 'POST':
         try:
-            # Отримайте дані у форматі JSON з тіла запиту
             data = request.get_json()
 
-            # Доступ до даних з форми
             brand = data.get('brand')
             model = data.get('model')
+            yearFrom = data.get('yearFrom')
+            yearTo = data.get('yearTo')
+            priceFrom = data.get('priceFrom')
+            priceTo = data.get('priceTo')
+            city = data.get('city')
 
-            # Вивести дані в консоль
-            print(f'Ім\'я: {brand}')
-            print(f'Email: {model}')
+            try:
+                url = f"https://auto.ria.com/uk/search/?indexName=auto,order_auto,newauto_search&categories.main.id=1&brand.id[0]=84&model.id[0]=35449&year[0].gte={yearFrom}&year[0].lte={yearTo}&price.USD.gte={priceFrom}&price.USD.lte={priceTo}&region.id[0]=5&city.id[0]=5"
+                response = requests.get(url)
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    item_elements = soup.find_all(class_='item ticket-title')
+                    car_names = [item.get_text().strip() for item in item_elements]
+                    return jsonify(car_names)
+                else:
+                    return jsonify({'error': 'Не вдалося отримати сторінку'}), 500
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
 
-            # Повернути відповідь
+
             return jsonify({'message': 'Дані з форми були успішно отримані.'}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 400
