@@ -2,9 +2,8 @@ import "./Form.css";
 import { useState } from "react";
 
 const Form = () => {
-  const [data, setData] = useState({});
-
-  let obj = {
+  const [cars, setCars] = useState({});
+  const [formData, setFormData] = useState({
     brand: "",
     model: "",
     yearFrom: "",
@@ -12,6 +11,14 @@ const Form = () => {
     priceFrom: "",
     priceTo: "",
     city: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   // const car = {
@@ -28,89 +35,102 @@ const Form = () => {
   //   site: "autoria",
   // };
 
-  const fetchData = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     fetch("http://127.0.0.1:5000", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(obj),
+      body: JSON.stringify(formData),
     })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        setData(data);
-        console.log(data);
+        console.log("Отримана відповідь від сервера:", data);
+        setCars(data);
+      })
+      .catch((error) => {
+        console.error("Помилка:", error);
       });
   };
 
   return (
     <div className={"form-container"}>
-      <div>
-        <input
-          type="text"
-          placeholder={"марка"}
-          id={"brand"}
-          name={"brand"}
-          onChange={(e) => (obj.brand = e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder={"модель"}
-          id={"model"}
-          name={"model"}
-          onChange={(e) => (obj.model = e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder={"рік від"}
-          id={"yearFrom"}
-          name={"yearFrom"}
-          onChange={(e) => (obj.yearFrom = e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder={"рік до"}
-          id={"yearTo"}
-          name={"yearTo"}
-          onChange={(e) => (obj.yearTo = e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder={"ціна від"}
-          id={"priceFrom"}
-          name={"priceFrom"}
-          onChange={(e) => (obj.priceFrom = e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder={"ціна до"}
-          id={"priceTo"}
-          name={"priceTo"}
-          onChange={(e) => (obj.priceTo = e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder={"місто"}
-          id={"city"}
-          name={"city"}
-          onChange={(e) => (obj.city = e.target.value)}
-        />
-      </div>
-      <div>
-        <input type="submit" onClick={fetchData} />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            placeholder={"марка"}
+            id={"brand"}
+            name={"brand"}
+            value={formData.brand}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder={"модель"}
+            id={"model"}
+            name={"model"}
+            value={formData.model}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder={"рік від"}
+            id={"yearFrom"}
+            name={"yearFrom"}
+            value={formData.yearFrom}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder={"рік до"}
+            id={"yearTo"}
+            name={"yearTo"}
+            value={formData.yearTo}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder={"ціна від"}
+            id={"priceFrom"}
+            name={"priceFrom"}
+            value={formData.priceFrom}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder={"ціна до"}
+            id={"priceTo"}
+            name={"priceTo"}
+            value={formData.priceTo}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder={"місто"}
+            id={"city"}
+            name={"city"}
+            value={formData.city}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <input type="submit" />
+        </div>
+      </form>
     </div>
   );
 };
