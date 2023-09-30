@@ -21,24 +21,35 @@ def cars():
             priceFrom = data.get('priceFrom')
             priceTo = data.get('priceTo')
             city = data.get('city')
-
+            car_data_list = []
             try:
                 url = f"https://auto.ria.com/uk/search/?indexName=auto,order_auto,newauto_search&categories.main.id=1&brand.id[0]=84&model.id[0]=35449&year[0].gte={yearFrom}&year[0].lte={yearTo}&price.USD.gte={priceFrom}&price.USD.lte={priceTo}&region.id[0]=5&city.id[0]=5"
                 response = requests.get(url)
                 if response.status_code == 200:
                     soup = BeautifulSoup(response.text, 'html.parser')
                     car_blocks = soup.find_all(class_='ticket-item')
-                    car_data_list = []
+
                     for car_block in car_blocks:
                         car_name = car_block.find(class_='item ticket-title').get_text().strip()
                         car_price = car_block.find(class_='bold size22 green').get_text().strip()
                         car_year = car_name[-4:]
                         car_image = car_block.find('img')['src']
+                        car_city = car_block.find(class_='item-char view-location js-location').get_text().strip().replace(' ( від )', '')
+                        car_run = car_block.find(class_='unstyle characteristic').find(class_='item-char js-race').get_text().strip()
+                        car_link = car_block.find(class_='m-link-ticket').get("href")
+                        car_transmission = list(car_block.find(class_='unstyle characteristic'))[-2].get_text().strip()
+                        car_volume = list(car_block.find(class_='unstyle characteristic'))[-4].get_text().strip()
                         car_data = {
                             'title': car_name,
                             'price': car_price,
                             'yarn': car_year,
-                            'image': car_image
+                            'image': car_image,
+                            'city': car_city,
+                            'run': car_run,
+                            'link': car_link,
+                            'site': 'autoria',
+                            'transmission': car_transmission,
+                            'volume': car_volume
                         }
                         car_data_list.append(car_data)
                     return jsonify(car_data_list)
