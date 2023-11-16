@@ -14,25 +14,31 @@ const Card = ({
 }) => {
   return (
     <div className={"card"}>
-      <a href={link}>
-        <img className={"image"} src={image} alt="" />
+      <a href={link} className={"link"}>
+        <img className={"image"} src={image} alt="" height={250} />
       </a>
-      <div>
-        <div className={"title-block"}>
-          <p>{title}</p>
-          <p>{year}</p>
+      <div className={"card-container"}>
+        <a href={link}>
+          <div className={"title-block"}>
+            <p>{title}</p>
+            <p>{year}</p>
+          </div>
+        </a>
+        <div className={"price"}>
+          <p>{price} $</p>
         </div>
-        <p>{price}</p>
         <div className={"characteristics"}>
           <div className={"char-row"}>
-            <p>{run}</p>
-            <p>{transmission}</p>
+            <p className={"run"}>{run}</p>
+            <p className={"transmission"}>{transmission}</p>
           </div>
           <div className={"char-row"}>
-            <p>{volume}</p>
-            <p>{city}</p>
-            {/*<p className={'site'}>{site}</p>*/}
+            <p className={"volume"}>{volume}</p>
+            <p className={"city"}>{city}</p>
           </div>
+        </div>
+        <div className={"site"}>
+          <p>{site}</p>
         </div>
       </div>
     </div>

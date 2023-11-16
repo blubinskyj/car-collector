@@ -4,6 +4,19 @@
     max-height: 250px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     min-width: 700px;
+    margin-top: 30px;
+}
+.card-container {
+    width: 100%;
+    margin-right: 20px;
+}
+.characteristics {
+    font-size: 18px;
+}
+.card p {
+    margin: 0;
+}
+.link {
 }
 
 .image {
@@ -15,6 +28,55 @@
     display: flex;
 }
 
-.char-row {
+.title-block p {
+    margin-top: 15px ;
+    margin-right: 15px;
+    text-transform: capitalize;
+    font-size: 25px;
+}
+
+.price {
     display: flex;
+    font-size: 22px;
+    font-weight: 700;
+    color: #3c9806;
+}
+
+.char-row {
+    display: grid;
+    grid-template-columns:  50% 50%;
+    margin-top: 20px;
+}
+.char-row p {
+    margin-right: 10px;
+}
+
+.site {
+    margin-top: 10px;
+    float:right;
+    clear:right;
+}
+.run::before {
+    content:url('../../../public/speedometer.svg');
+    margin-right: 5px;
+    position: relative;
+    bottom: -2px;
+}
+.transmission::before {
+    content:url('../../../public/transmission.svg');
+    margin-right: 5px;
+    position: relative;
+    bottom: -2px;
+}
+.volume::before {
+    content:url('../../../public/fuel.svg');
+    margin-right: 5px;
+    position: relative;
+    bottom: -2px;
+}
+.city::before {
+    content:url('../../../public/location.svg');
+    margin-right: 5px;
+    position: relative;
+    bottom: -2px;
 }
