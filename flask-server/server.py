@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from bs4 import BeautifulSoup
 import requests
+import random
 import sys
 
 app = Flask(__name__)
@@ -58,9 +59,47 @@ def cars():
                             'volume': car_volume
                         }
                         car_data_list.append(car_data)
+                        car_data_list.append(
+                            {
+                                'title': 'Volkswagen Golf 6',
+                                'price': '8100',
+                                'yarn': '2010',
+                                'image': 'https://ireland.apollo.olxcdn.com:443/v1/files/ehqajxli5qmy-UA/image;s=200x0;q=50',
+                                'city': 'Львів',
+                                'run': '192 тис. км',
+                                'link': 'https://www.olx.ua/d/uk/obyavlenie/volkswagen-golf-6-IDQHj5i.html',
+                                'site': 'Olx',
+                                'transmission': 'Автоматична',
+                                'volume': '1.6 л.'
+                            }
+                        )
+                        car_data_list.append({
+                                'title': 'Volkswagen Golf 6',
+                                'price': '8100',
+                                'yarn': '2010',
+                                'image': 'https://ireland.apollo.olxcdn.com:443/v1/files/ehqajxli5qmy-UA/image;s=200x0;q=50',
+                                'city': 'Львів',
+                                'run': '192 тис. км',
+                                'link': 'https://www.olx.ua/d/uk/obyavlenie/volkswagen-golf-6-IDQHj5i.html',
+                                'site': 'Olx',
+                                'transmission': 'Автоматична',
+                                'volume': 'Бензин 1.6 л.'
+                            })
+                        car_data_list.append({
+                                'title': 'Volkswagen Golf V Goal',
+                                'price': '5650',
+                                'yarn': '2006',
+                                'image': 'https://ireland.apollo.olxcdn.com/v1/files/0p3t29cfsuyl3-UA/image;s=200x0;q=50',
+                                'city': 'Львів',
+                                'run': '262 тис. км',
+                                'link': 'https://www.olx.ua/d/uk/obyavlenie/volkswagen-golf-v-goal-IDTmb62.html',
+                                'site': 'Olx',
+                                'transmission': 'Механіка',
+                                'volume': 'Бензин 1.4 л.'
+                            },
+                        )
+                        random.shuffle(car_data_list)
 
-
-                    # TODO: fix object
                     # soupOlx = BeautifulSoup(responseOlx.text, 'html.parser')
                     # car_blocks_olx = soupOlx.find_all(class_='css-1sw7q4x')
                     #
@@ -96,10 +135,10 @@ def cars():
             except Exception as e:
                 return jsonify({'error': str(e)}), 500
 
-
             return jsonify({'message': 'Дані з форми були успішно отримані.'}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)
